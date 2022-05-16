@@ -239,26 +239,64 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
-      // TODO: get data from inputs and show them in summary
+      
        //wybierz wszystkie zaznaczone checkboxy z kategoriami (document.querySelector(‘[name=categories]::checked’))
        const CheckedCategs = document.querySelectorAll("[name='categories']:checked");
-       const a = Array.from(CheckedCategs).map(el => el.value)
-       console.log(a);
        //wydobyc value z wybranych checkboxow -> id categorii
-       //const CatValues = CheckedCategs.dataset.value;
+       const a = Array.from(CheckedCategs).map(el => el.value)
+       //console.log(a);      
        //zlap wszystkie div-y ktore maja attrybut data-categories
-       //const divs = document.querySelectorAll("div[data-categories]");
+       const divs = document.querySelectorAll("div[data-categories]");
        //console.log(divs)
        // dla kazdego div-a (forEach) sprawdz czy ma wszystkie categories ktore sa zaznaczone - jezeli ma to go zostaw, a jak nie to ukryj (style.display=none)
-       //divs.forEach(el => {
-        //const b = el.dataset.categories.split(","); 
-        //console.log(el)
-           //metoda tablicowa "every"
-         //                  });
-       //console.log(b)
-       //const contains = a.every(element => {
-       //  return b.includes(element);
-                                                               //});
+        divs.forEach(el => {
+          const b = el.dataset.categories.split(","); 
+          //console.log(b)
+          //metoda tablicowa "every"
+            const contains = a.every(element => {
+              return b.includes(element);
+            });
+            console.log(contains, el);
+            if (contains === false) {
+              //console.log("brak");
+              el.style.display = "none";
+            } else {el.style.display = ""};
+        });
+
+      // TODO: get data from inputs and show them in summary
+      const bagsQuantity = document.querySelector("#bags-input").value;
+      //console.log(bagsQuantity);
+      document.querySelector("#bags-show").innerHTML = "Liczba workow ktora oddajesz: " + bagsQuantity + " , ktore zawieraja:"; 
+      let catDivs = document.querySelectorAll("div[data-categorydiv]");
+      console.log(catDivs);
+      catDivs.forEach(el => {
+        console.log(el)
+        a.forEach(a_el => {
+          console.log(a_el)
+          if (a_el == el.dataset.value) {
+            let textDiv = el.querySelector(".description").innerText;
+            console.log(textDiv);
+          }; 
+        });
+        
+      });
+      //const aa = document.querySelectorAll("[name='categories']:checked").querySelector(".description");
+      //const bb = aa.querySelector(".description");
+      //const aa = document.querySelector(".description")
+      console.log(CheckedCategs)
+      //console.log(aa)
+     /* CheckedCategs.forEach(el => {
+        const CatDescription = el.querySelector(".description").innerText;
+        console.log(CatDescription);
+      }); */
+      
+      //divs.forEach(el => {
+       // console.log(el)
+        //let CatDescription = el.querySelector(".description")
+        //console.log(CatDescription)
+      //});
+
+      
     }
 
     /**

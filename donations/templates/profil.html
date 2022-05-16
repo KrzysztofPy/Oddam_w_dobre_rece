@@ -17,4 +17,21 @@
     </div>
   </header>
 
+  <section id="" class="">
+    <div class="about-us--text">
+      <h2>Twoja aktywnosc</h2>
+      <p>Przekazanych wszystkich workow: {{sum_of_all_bags}}</p>
+      {% for donation in donations %}
+        {%if donation.pick_up_date > today%}
+          <p>{{donation.quantity}} workow dla organizacji "{{donation.institution.name}}" w ktorych przekazales {% for category in donation.categories.all %}{{category.name}}, {% endfor %}</p>
+          <p>Przesylka bedzie nadana: {{donation.pick_up_date}} o godzinie {{donation.pick_up_time}}</p>
+        {% else %}
+          <p>{{donation.quantity}} workow dla organizacji "{{donation.institution.name}}" w ktorych przekazales {% for category in donation.categories.all %}{{category.name}}, {% endfor %}</p>
+          <p>Przesylka zostala nadana: {{donation.pick_up_date}} o godzinie {{donation.pick_up_time}}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+  </section>
+
 {% endblock %}
